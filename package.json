@@ -1,0 +1,14 @@
+{
+  "name": "seamless-ai-challange",
+  "version": "0.0.1",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apinate/seamless-ai-challange.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/apinate/seamless-ai-challange/issues"
+  },
+  "homepage": "https://github.com/apinate/seamless-ai-challange#readme"
+}
