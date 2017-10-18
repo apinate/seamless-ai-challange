@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [{
+      "name": "app:attach",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:8081",
+      "webRoot": "${workspaceRoot}/app/src",
+      "userDataDir": "${workspaceRoot}/.vscode/chrome",
+      "sourceMapPathOverrides": {
+        "webpack:///src/*": "${webRoot}/*"
+      }
+    }]
+  }
