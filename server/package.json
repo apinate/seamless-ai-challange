@@ -1,0 +1,11 @@
+{
+  "name": "seamless-ai--challange-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.mjs",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.16.2"
+  }
+}

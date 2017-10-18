@@ -20,6 +20,9 @@
     "eslint-plugin-react": "7.4.0"
   },
   "scripts": {
-    "lint": "eslint \"**/*.js\" \"**/*.jsx\""
+    "lint": "eslint \"**/*.js\" \"**/*.jsx\"",
+
+    "server:run": "node --experimental-modules server/.",
+    "server:run:inspect": "node --inspect --experimental-modules server/. "
   }
 }
