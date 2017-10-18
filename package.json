@@ -11,8 +11,12 @@
     "url": "https://github.com/apinate/seamless-ai-challange/issues"
   },
   "homepage": "https://github.com/apinate/seamless-ai-challange#readme",
+  "devDependencies": {
+    "nodemon": "1.12.1"
+  },
   "scripts": {
     "server:run": "node --experimental-modules server/.",
-    "server:run:inspect": "node --inspect --experimental-modules server/. "
+    "server:run:inspect": "node --inspect --experimental-modules server/. ",
+    "server:watch": "nodemon --experimental-modules --watch './server' -e mjs,js ./server"
   }
 }
