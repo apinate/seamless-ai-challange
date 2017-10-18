@@ -1,12 +1,13 @@
 import express from 'express';
 
-import http from "http"
+import http from 'http';
 
 export class Server {
   constructor() {
     this.app = express();
-    
+
     this.app.use('/status', this.status);
+    this.app.get('/domains', this.getDomains);
   }
 
   async start(port = 3000) {
@@ -16,7 +17,25 @@ export class Server {
     });
   }
 
-  status(req, res) { 
-    res.sendStatus(200) 
-  };
+  status(req, res) {
+    res.sendStatus(200);
+  }
+
+  getDomains(req, res) {
+    const data = {
+      data: [
+        {
+          name: 'nike',
+          domain: 'nike.com',
+        },
+        {
+          name: 'adidas',
+          domain: 'adidas.com',
+        },
+      ],
+      length: 2,
+    };
+
+    res.json(data);
+  }
 }
