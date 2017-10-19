@@ -1,12 +1,22 @@
-const MOCK_DATA = [
-  { name: 'adidas', domain: 'adidas.com' },
-  { name: 'nike', domain: 'nike.com' },
-  { name: 'puma', domain: 'puma.com' },
-];
+const baseUri = process.env.REACT_APP_SERVER_URL;
 
-// eslint-disable-next-line
-export const findCompaniesDomains = (names) => {
-  return new Promise((resolve) => {
-    setTimeout(() => (resolve(MOCK_DATA)), 500);
-  });
+const headers = new Headers();
+headers.append('Accept', 'application/json');
+
+const basicRequest = {
+  headers,
+  method: 'GET',
+  mode: 'cors',
+};
+
+const handleErrors = (response) => {
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return response.json();
+};
+
+export const findCompaniesDomains = async (names) => {
+  const queryParams = names.map(param => `companies[]=${param}`).join('&');
+  return fetch(`${baseUri}/domains?${queryParams}`, basicRequest).then(handleErrors);
 };

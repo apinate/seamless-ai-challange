@@ -3,7 +3,7 @@ import google from 'googleapis'
 import express from 'express'
 import asyncMiddleware from 'async-middleware'
 
-import { config } from './../config'
+import { config } from '../config'
 
 const customSearch = google.customsearch('v1');
 
