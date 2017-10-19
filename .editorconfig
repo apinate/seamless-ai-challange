@@ -2,7 +2,7 @@
 
 root = true
 
-[{*.js,*.jsx,*.json,*.sh,*.css,*.html}]
+[{*.js,*.mjs,*.jsx,*.json,*.sh,*.css,*.html}]
 indent_style = space
 indent_size = 2
 end_of_line = lf
