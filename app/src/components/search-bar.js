@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './search-bar.css';
 
 class SearchBar extends Component {
   state = { value: '' };
@@ -17,6 +18,10 @@ class SearchBar extends Component {
     }
   }
 
+  get hasError() {
+    return this.state.error;
+  }
+
   validate(queryData) {
     let error = '';
     try {
@@ -32,18 +37,34 @@ class SearchBar extends Component {
     return !error;
   }
 
+  classNamesOnError(classNames) {
+    return this.hasError ? classNames : '';
+  }
+
   render() {
     return (
-      <div className="search-bar">
-        <input
-          type="text"
-          value={this.state.value}
-          onChange={this.onChange}
-          className={`search-input ${this.state.error ? 'validation-error' : ''}`}
-        />
-        <button onClick={this.onClick}>Find Domains</button>
-        <div className="validation-error">
-          <span>{this.state.error}</span>
+      <div className="mt-3">
+        <div className="d-flex flex-wrap flex-row justify-content-between align-content-center">
+          <div className={`form-group search-input-container col-lg-10 ${this.classNamesOnError('has-danger')}`}>
+            <div className="input-group search-input-group">
+              <span className="input-group-addon search-icon-addon">
+                <i className="fa fa-search" aria-hidden="true" />
+              </span>
+              <input
+                placeholder={this.props.searchPlaceholder}
+                id="search-input"
+                type="search"
+                value={this.state.value}
+                onChange={this.onChange}
+                className="form-control"
+              />
+            </div>
+          </div>
+
+          <button className="btn btn-primary" onClick={this.onClick}>Find Domains</button>
+        </div>
+        <div className={`text-danger ${this.hasError ? '' : 'invisible'}`} >
+          <small>{this.state.error || 'No Error'}</small>
         </div>
       </div>
     );
@@ -51,6 +72,7 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
+  searchPlaceholder: PropTypes.string.isRequired,
   onSearch: PropTypes.func.isRequired,
   validation: PropTypes.func,
   queryExtractor: PropTypes.func,
