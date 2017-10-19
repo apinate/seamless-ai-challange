@@ -1,39 +1,38 @@
-import express from 'express';
-
-import http from 'http';
+import express from 'express'
+import http from 'http'
 
 export class Server {
-  constructor() {
+  constructor () {
     this.app = express();
 
     this.app.use('/status', this.status);
     this.app.get('/domains', this.getDomains);
   }
 
-  async start(port = 3000) {
+  async start (port = 3000) {
     const server = await http.createServer(this.app);
     return server.listen(port, () => {
       console.info('🚀 Server is running.');
     });
   }
 
-  status(req, res) {
+  status (req, res) {
     res.sendStatus(200);
   }
 
-  getDomains(req, res) {
+  getDomains (req, res) {
     const data = {
       data: [
         {
           name: 'nike',
-          domain: 'nike.com',
+          domain: 'nike.com'
         },
         {
           name: 'adidas',
-          domain: 'adidas.com',
-        },
+          domain: 'adidas.com'
+        }
       ],
-      length: 2,
+      length: 2
     };
 
     res.json(data);
