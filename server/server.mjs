@@ -1,12 +1,14 @@
-import express from 'express'
 import http from 'http'
+import express from 'express'
 
-export class Server {
+import * as routes from './routes'
+
+export default class Server {
   constructor () {
     this.app = express();
 
     this.app.use('/status', this.status);
-    this.app.get('/domains', this.getDomains);
+    this.app.use('/domains', routes.domains);
   }
 
   async start (port = 3000) {
@@ -18,23 +20,5 @@ export class Server {
 
   status (req, res) {
     res.sendStatus(200);
-  }
-
-  getDomains (req, res) {
-    const data = {
-      data: [
-        {
-          name: 'nike',
-          domain: 'nike.com'
-        },
-        {
-          name: 'adidas',
-          domain: 'adidas.com'
-        }
-      ],
-      length: 2
-    };
-
-    res.json(data);
   }
 }
