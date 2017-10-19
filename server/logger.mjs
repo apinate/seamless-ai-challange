@@ -1,7 +1,11 @@
-class Logger {
+class LoggerAbstraction {
   error (error) {
-   console.error(error);
- }
+    console.error(error);
+  }
+
+  info (info) {
+    console.info(info);
+  }
 }
 
-export default Logger = new Logger();
+export default new LoggerAbstraction();

@@ -38,6 +38,17 @@ const getDomains = asyncMiddleware.wrap(async (req, res) => {
     Logger.error(error);
 
     res.status(422).send(error);
+
+    return;
+  }
+
+  if (companies.length > 25) {
+    const error = 'Up to 25 companies can be processed';
+    Logger.error(error);
+
+    res.status(413).send(error);
+
+    return;
   }
 
   const domains = [];

@@ -12,11 +12,14 @@
   },
   "homepage": "https://github.com/apinate/seamless-ai-challange#readme",
   "devDependencies": {
+    "chai": "4.1.2",
+    "mocha": "4.0.1",
     "nodemon": "1.12.1"
   },
   "scripts": {
-    "server:run": "node --experimental-modules server/.",
-    "server:run:inspect": "node --inspect --experimental-modules server/. ",
-    "server:watch": "nodemon --experimental-modules --watch './server' -e mjs,js ./server"
+    "server:run": "node server/.",
+    "server:run:inspect": "node --inspect server/. ",
+    "server:watch": "nodemon --watch './server' -e mjs,js ./server",
+    "server:test": "mocha './server/tests/**/*.js' --recursive"
   }
 }
