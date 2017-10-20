@@ -4,6 +4,7 @@ import express from 'express'
 import asyncMiddleware from 'async-middleware'
 
 import { config } from '../config'
+import Logger from '../logger'
 
 const customSearch = google.customsearch('v1');
 
@@ -34,9 +35,20 @@ const getDomains = asyncMiddleware.wrap(async (req, res) => {
 
   if (!Array.isArray(companies)) {
     const error = 'companies array should be send';
-    console.error(error);
+    Logger.error(error);
 
     res.status(422).send(error);
+
+    return;
+  }
+
+  if (companies.length > 25) {
+    const error = 'Up to 25 companies can be processed';
+    Logger.error(error);
+
+    res.status(413).send(error);
+
+    return;
   }
 
   const domains = [];
