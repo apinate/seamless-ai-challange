@@ -1,6 +1,8 @@
 const { assert } = require('chai');
+const querystring = require('querystring');
 
 const helpers = require('./../helpers');
+const testData = require('./testData');
 
 describe('Companies GET query', () => {
   it('should fail without query param', async () => {
@@ -12,14 +14,22 @@ describe('Companies GET query', () => {
 
   it('should return 200', async () => {
     const client = helpers.getClient();
-    const response = await client.get('/domains?companies[]=google');
+    const companyTestData = testData.getTestData()[0];
+    const { company } = companyTestData;
+
+    const companiesQuery = querystring.stringify({ 'companies[]': [ company ] });
+    const response = await client.get(`/domains?${companiesQuery}`);
 
     assert.equal(response.status, 200);
   });
 
   it('should have json Content-Type', async () => {
     const client = helpers.getClient();
-    const response = await client.get('/domains?companies[]=google');
+    const companyTestData = testData.getTestData()[0];
+    const { company } = companyTestData;
+
+    const companiesQuery = querystring.stringify({ 'companies[]': [ company ] });
+    const response = await client.get(`/domains?${companiesQuery}`);
 
     assert.isTrue(response.headers.hasOwnProperty('content-type'));
 
@@ -29,23 +39,50 @@ describe('Companies GET query', () => {
 
   it('should return domain', async () => {
     const client = helpers.getClient();
-    const response = await client.get('/domains?companies[]=google');
+    const companyTestData = testData.getTestData()[0];
+    const { company, domain } = companyTestData;
 
-    assert.equal(response.data[0].name, 'google');
-    assert.equal(response.data[0].domain, 'google.com');
+    const companiesQuery = querystring.stringify({ 'companies[]': [ company ] });
+    const response = await client.get(`/domains?${companiesQuery}`);
+
+    const { data } = response;
+    assert.equal(data[0].name, company);
+    assert.include(domain, data[0].domain);
   });
 
   it('should not be able to process more than 25 companies', async () => {
     const client = helpers.getClient();
 
-    const companiesArray = [];
+    const companies = [];
     for (let i = 0; i < 26; i++) {
-      companiesArray.push('companies[]=company' + i);
+      companies.push(`company${i}`);
     }
 
-    const companiesQuery = companiesArray.join('&');
-    const response = await client.get('/domains?' + companiesQuery);
+    const companiesQuery = querystring.stringify({ companies });
+    const response = await client.get(`/domains?${companiesQuery}` + companiesQuery);
 
     assert.equal(response.status, 413);
+  });
+  it('should return domain of test data companies', async () => {
+    const client = helpers.getClient();
+    const companiesTestData = testData.getTestData();
+
+    let companies = companiesTestData.reduce((result, { company }) => {
+      result.push(company);
+
+      return result;
+    }, []);
+
+    const query = querystring.stringify({ companies });
+    const response = await client.get('/domains?' + query);
+
+    response.data.forEach(data => {
+      const { name, domain } = data;
+
+      assert.include(companies, name);
+      const companyTestData = companiesTestData.filter(testData => testData.company === name);
+
+      assert.include(companyTestData[0].domain, domain, `for company ${name}`);
+    });
   });
 })
