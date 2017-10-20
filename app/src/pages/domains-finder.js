@@ -27,8 +27,9 @@ class DomainsFinder extends Component {
 
   render() {
     return (
-      <div className="domains-finder">
+      <div className="container">
         <SearchBar
+          searchPlaceholder="Enter company names separated by comma (e.g. 'company1, company2')"
           onSearch={this.findCompaniesDomains}
           validation={validation}
           queryExtractor={extractNames}

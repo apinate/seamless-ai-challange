@@ -5,11 +5,24 @@ import DomainsTableRow from './domains-table-row';
 
 const DomainsTable = (props) => {
   const renderRow = data => <DomainsTableRow key={data.name} data={data} />;
+  const { companies } = props;
+
+  if (!companies || !companies.length) {
+    return null;
+  }
 
   return (
-    <div className="domains-table">
-      {props.companies.map(renderRow)}
-    </div>
+    <table className="table">
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>Domain Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {props.companies.map(renderRow)}
+      </tbody>
+    </table>
   );
 };
 

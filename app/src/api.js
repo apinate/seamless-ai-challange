@@ -17,6 +17,6 @@ const handleErrors = (response) => {
 };
 
 export const findCompaniesDomains = async (names) => {
-  const queryParams = names.map(param => `companies[]=${param}`).join('&');
+  const queryParams = names.map(value => `companies[]=${value}`).join('&');
   return fetch(`${baseUri}/domains?${queryParams}`, basicRequest).then(handleErrors);
 };
