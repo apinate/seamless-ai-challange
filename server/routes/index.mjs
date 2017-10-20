@@ -37,29 +37,23 @@ const getDomains = asyncMiddleware.wrap(async (req, res) => {
     const error = 'companies array should be send';
     Logger.error(error);
 
-    res.status(422).send(error);
-
-    return;
+    return res.status(422).send(error);
   }
 
   if (companies.length > 25) {
     const error = 'Up to 25 companies can be processed';
     Logger.error(error);
 
-    res.status(413).send(error);
-
-    return;
+    return res.status(413).send(error);
   }
 
-  const domains = [];
-  await Promise.all(companies.map(async (company) => {
+  const domains = await Promise.all(companies.map(async (company) => {
     const result = await searchCompany(company);
     const { domain, tld } = parseDomain(result.link);
-
-    domains.push({
+    return {
       name: company,
       domain: `${domain}.${tld}`
-    });
+    };
   }));
 
   res.json(domains);

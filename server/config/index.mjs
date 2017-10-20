@@ -1,6 +1,6 @@
 import dotenv from 'dotenv'
 import path from 'path'
-import rootDir from './../paths'
+import rootDir from './../rootDir'
 
 const envPath = path.join(rootDir, '.env');
 dotenv.config({ path: envPath });
