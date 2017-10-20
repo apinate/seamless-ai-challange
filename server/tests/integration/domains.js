@@ -63,6 +63,16 @@ describe('Companies GET query', () => {
 
     assert.equal(response.status, 413);
   });
+  it('should return domain of excluded company', async () => {
+    const client = helpers.getClient();
+
+    const companiesQuery = querystring.stringify({ 'companies[]': [ 'google' ] });
+    const response = await client.get(`/domains?${companiesQuery}`);
+
+    const { data } = response;
+    assert.equal(data[0].name, 'google');
+    assert.equal(data[0].domain, 'google.com');
+  });
   it('should return domain of test data companies', async () => {
     const client = helpers.getClient();
     const companiesTestData = testData.getTestData();
