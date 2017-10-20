@@ -17,6 +17,12 @@
     "nodemon": "1.12.1"
   },
   "scripts": {
+    "app:init": "cd ./app && yarn install",
+    "app:run" : "cd ./app && yarn start",
+    "app:build" : "cd ./app && yarn build",
+    "app:test" : "cd ./app && yarn test",
+    "app:lint" : "cd ./app && yarn lint",
+
     "server:run": "node server/.",
     "server:run:inspect": "node --inspect server/. ",
     "server:watch": "nodemon --watch './server' -e mjs,js ./server",
