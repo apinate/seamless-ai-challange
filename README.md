@@ -5,16 +5,16 @@ A web application allowing its users to search up to 25 company domains by enter
 ## **Local Development Setup**
 
 ### **Workspace**
-* ### Prerequisites
+* #### Prerequisites
     * **Node.js** - see *.nvmrc* for the Node.js version, preferably use [*nvm*](https://github.com/creationix/nvm) ([installation guide](https://github.com/creationix/nvm#installation), [nvm use](https://github.com/creationix/nvm#nvmrc)).
-    * To run the server make sure you provide the Google Custom Search Api Key and search engine as environment variables. For testing purposes you can add an `./server/.env` file with the following content 
+    * To run the server make sure you provide the Google Custom Search Api Key and search engine as environment variables. For testing purposes you can add an [.env](https://www.npmjs.com/package/dotenv) file at the following location `./server/.env` file with the content 
     ```
     GOOGLE_AUTH=[your API key]
     GOOGLE_CX=[search engine]
     ```
 
 ### **Web Application**
-* ### Prerequisites 
+* #### Prerequisites 
     * [**yarn**](https://yarnpkg.com/en/) - [Install](https://yarnpkg.com/en/docs/install#mac-tab) `yarn` (preferably without `node` if you want to take advantage of `nvm`).
 
 ### **Running Locally**
