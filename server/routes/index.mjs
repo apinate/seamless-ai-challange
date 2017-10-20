@@ -12,7 +12,7 @@ const searchCompany = (company) => {
   const customSearchPromise = new Promise((resolve, reject) => {
     const { google: { cx, auth } } = config;
 
-    customSearch.cse.list({ cx, q: company, num: 1, auth },
+    customSearch.cse.list({ cx, q: `${company} website`, num: 1, auth, siteSearchFilter: 'e', siteSearch: 'google.com' },
       (error, response) => {
         if (error) {
           return reject(error);
