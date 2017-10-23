@@ -14,7 +14,7 @@ const excludedWebsites = [
   'crunchbase.com',
   'facebook.com',
   'wikipedia.com'
-]
+].map(website => website.toUpperCase());
 
 const searchCompanies = (company) => {
   const customSearchPromise = new Promise((resolve, reject) => {
@@ -56,20 +56,20 @@ const getDomains = asyncMiddleware.wrap(async (req, res) => {
   }
 
   const domains = await Promise.all(companies.map(async (company) => {
-    const foundCompanies = await searchCompanies(company);
-    const isExcludedCompany = excludedWebsites.find(excludedWebsite => excludedWebsite.toUpperCase().includes(company.toUpperCase()));
+    const companyCandidates = await searchCompanies(company);
+    const excludedCompany = excludedWebsites.find(excludedWebsite => excludedWebsite.includes(company.toUpperCase()));
 
-    let parsedDomains = foundCompanies.map(foundCompany => {
+    let parsedDomains = companyCandidates.map(foundCompany => {
       const { domain, tld } = parseDomain(foundCompany.link);
 
       return { domain, tld };
     });
 
-    if (!isExcludedCompany) {
+    if (!excludedCompany) {
       parsedDomains = parsedDomains.filter(result => {
         const { domain, tld } = result;
 
-        return !excludedWebsites.find(excludedWebsite => excludedWebsite.toUpperCase() === `${domain}.${tld}`.toUpperCase());
+        return !excludedWebsites.find(excludedWebsite => excludedWebsite === `${domain}.${tld}`.toUpperCase());
       })
     }
 
@@ -79,21 +79,11 @@ const getDomains = asyncMiddleware.wrap(async (req, res) => {
       return domain.toUpperCase() === company.toUpperCase() || `${domain}.${tld}`.toUpperCase() === company.toUpperCase();
     });
 
-    const { domain, tld } = parsedDomains[0];
-    let foundDomain = {
+    const { domain, tld } = filteredItem || parsedDomains[0];
+    return {
       name: company,
       domain: `${domain}.${tld}`
     };
-
-    if (filteredItem) {
-      const { domain, tld } = filteredItem;
-      foundDomain = {
-        name: company,
-        domain: `${domain}.${tld}`
-      };
-    }
-
-    return foundDomain;
   }));
 
   res.json(domains);
