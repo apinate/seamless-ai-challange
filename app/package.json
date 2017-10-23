@@ -23,7 +23,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "yarn lint && react-scripts build",
+    "build": "npm run lint && react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "lint": "eslint \"**/*.js\" \"**/*.jsx\""
   },
