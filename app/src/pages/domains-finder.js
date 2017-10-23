@@ -17,7 +17,7 @@ class DomainsFinder extends PureComponent {
     try {
       const names = extractNames(namesString);
       if (this.validate(names)) {
-        const companies = (await findCompaniesDomains(names));
+        const companies = await findCompaniesDomains(names);
         this.setState({ companies });
       }
     } catch (err) {
@@ -52,7 +52,7 @@ class DomainsFinder extends PureComponent {
           onSearch={this.onSearch}
           hasError={this.queryHasError}
         />
-        <div className={`p-1 error-message ${!this.queryHasError && !this.state.hasServerError && 'invisible'}`} role="alert">
+        <div className="p-1 error-message" role="alert">
           {
             (this.queryHasError && <small className="text-danger">{this.state.queryError}</small>)
             ||

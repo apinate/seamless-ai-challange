@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DomainsTable renders correctly when no companies provided 1`] = `null`;
+
+exports[`DomainsTable renders correctly when one company provided 1`] = `
+<table
+  className="table"
+>
+  <thead>
+    <tr>
+      <th>
+        Company Name
+      </th>
+      <th>
+        Domain Name
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        adidas
+      </td>
+      <td>
+        adidas.com
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`DomainsTable renders correctly when several companies provided 1`] = `
+<table
+  className="table"
+>
+  <thead>
+    <tr>
+      <th>
+        Company Name
+      </th>
+      <th>
+        Domain Name
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        adidas
+      </td>
+      <td>
+        adidas.com
+      </td>
+    </tr>
+    <tr>
+      <td>
+        nike
+      </td>
+      <td>
+        nike.com
+      </td>
+    </tr>
+    <tr>
+      <td>
+        apple
+      </td>
+      <td>
+        apple.com
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
