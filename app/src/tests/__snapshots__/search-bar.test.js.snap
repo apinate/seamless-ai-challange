@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBar renders correctly with has danger 1`] = `
+<form
+  className="mt-3 d-flex flex-wrap flex-row justify-content-between align-content-center"
+  onSubmit={[Function]}
+>
+  <div
+    className="form-group search-input-container col-lg-10 has-danger"
+  >
+    <div
+      className="input-group search-input-group"
+    >
+      <span
+        className="input-group-addon search-icon-addon"
+      >
+        <i
+          aria-hidden="true"
+          className="fa fa-search"
+        />
+      </span>
+      <input
+        className="form-control"
+        id="search-input"
+        onChange={[Function]}
+        placeholder="Enter company name"
+        type="search"
+        value=""
+      />
+    </div>
+  </div>
+  <button
+    className="btn btn-primary"
+    type="submit"
+  >
+    Find Domains
+  </button>
+</form>
+`;
+
+exports[`SearchBar renders correctly with no danger 1`] = `
+<form
+  className="mt-3 d-flex flex-wrap flex-row justify-content-between align-content-center"
+  onSubmit={[Function]}
+>
+  <div
+    className="form-group search-input-container col-lg-10 false"
+  >
+    <div
+      className="input-group search-input-group"
+    >
+      <span
+        className="input-group-addon search-icon-addon"
+      >
+        <i
+          aria-hidden="true"
+          className="fa fa-search"
+        />
+      </span>
+      <input
+        className="form-control"
+        id="search-input"
+        onChange={[Function]}
+        placeholder="Enter company name"
+        type="search"
+        value=""
+      />
+    </div>
+  </div>
+  <button
+    className="btn btn-primary"
+    type="submit"
+  >
+    Find Domains
+  </button>
+</form>
+`;
