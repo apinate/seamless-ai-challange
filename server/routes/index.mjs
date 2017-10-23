@@ -56,8 +56,17 @@ const getDomains = asyncMiddleware.wrap(async (req, res) => {
   }
 
   const domains = await Promise.all(companies.map(async (company) => {
+    const dbDomain = await req.context.DomainModel.getCompanyDomain(company);
+
+    if (dbDomain) {
+      return {
+        name: company,
+        domain: dbDomain.domain
+      };
+    }
+
     const companyCandidates = await searchCompanies(company);
-    const excludedCompany = excludedWebsites.find(excludedWebsite => excludedWebsite.includes(company.toUpperCase()));
+    const excludedCompany = excludedWebsites.find(excludedWebsite => excludedWebsite.toUpperCase().includes(company.toUpperCase()));
 
     let parsedDomains = companyCandidates.map(foundCompany => {
       const { domain, tld } = parseDomain(foundCompany.link);
@@ -80,10 +89,14 @@ const getDomains = asyncMiddleware.wrap(async (req, res) => {
     });
 
     const { domain, tld } = filteredItem || parsedDomains[0];
-    return {
+    const foundDomain = {
       name: company,
       domain: `${domain}.${tld}`
     };
+
+    req.context.DomainModel.storeCompanyDomain(foundDomain.name, foundDomain.domain);
+
+    return foundDomain;
   }));
 
   res.json(domains);
