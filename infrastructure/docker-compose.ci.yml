@@ -1,0 +1,10 @@
+version: '2'
+services:
+  server:
+    image: seamless-ai-challenge/server
+    ports:
+      - "3000:3000"
+  mongo:
+    image: mongo:3.2
+    ports:
+      - "27017:27017"
