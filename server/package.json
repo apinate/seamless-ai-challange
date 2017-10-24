@@ -12,7 +12,9 @@
     "cors": "2.8.4",
     "dotenv": "4.0.0",
     "express": "4.16.2",
+    "express-mongo-db": "2.0.3",
     "googleapis": "22.2.0",
+    "mongodb": "2.2.33",
     "parse-domain": "1.1.0"
   },
   "devDependencies": {

@@ -9,5 +9,8 @@ export const config = {
   google: {
     auth: process.env.GOOGLE_AUTH,
     cx: process.env.GOOGLE_CX
+  },
+  mongo: {
+    uri: process.env.MONGO_URI
   }
 };
