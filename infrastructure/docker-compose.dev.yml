@@ -1,0 +1,14 @@
+version: '2'
+services:
+  server:
+    extends:
+      file: docker-compose.ci.yml
+      service: server
+    env_file: 
+      - ../server/.env
+    depends_on:
+      - mongo
+  mongo:
+    extends:
+      file: docker-compose.ci.yml
+      service: mongo

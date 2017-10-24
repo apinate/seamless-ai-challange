@@ -1,6 +1,9 @@
 {
-  "name": "seamless-ai-challange",
+  "name": "seamless-ai-challenge",
   "version": "0.0.1",
+  "config": {
+    "version": "latest"
+  },
   "description": "",
   "repository": {
     "type": "git",
@@ -19,6 +22,7 @@
   "scripts": {
     "setup": "npm run app:install && npm run server:install",
     "test": "CI=true npm run app:test -a && npm run server:test",
+    "start": "npm run server:docker:run && npm run app:install && npm run app:run",
     "app:install": "cd ./app && npm install",
     "app:run": "cd ./app && npm start",
     "app:build": "cd ./app && npm run build",
@@ -28,6 +32,14 @@
     "server:run": "node server/.",
     "server:run:inspect": "node --inspect server/. ",
     "server:watch": "nodemon --watch './server' -e mjs,js ./server",
-    "server:test": "mocha './server/tests/**/*.js' --recursive"
+    "server:test": "mocha './server/tests/**/*.js' --recursive",
+    "server:docker:run": "npm run server:docker:prepare && npm run server:docker:build && npm run server:docker:down && npm run server:docker:up",
+    "server:docker:down": "cd ./infrastructure && docker-compose -f docker-compose.dev.yml down 2> /dev/null;",
+    "server:docker:up": "cd ./infrastructure && docker-compose -f docker-compose.dev.yml up -d",
+    "server:docker:build": "cat infrastructure/server.Dockerfile | docker build -t seamless-ai-challenge/server:$npm_package_config_version -f - .dist/server",
+    "server:docker:prepare": "npm run server:docker:prepare:1 && npm run server:docker:prepare:2 && npm run server:docker:prepare:3",
+    "server:docker:prepare:1": "docker rmi -f seamless-ai-challenge/server:$npm_package_config-version 2> /dev/null; rm -rf .dist/server && mkdir -p .dist",
+    "server:docker:prepare:2": "rsync -a server .dist --exclude 'node_modules/' --exclude '.env'",
+    "server:docker:prepare:3": "cd .dist/server && npm i --production --ignore-scripts"
   }
 }
