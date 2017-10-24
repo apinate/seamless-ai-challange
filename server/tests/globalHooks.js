@@ -1,7 +1,10 @@
 require = require('@std/esm')(module);
 
+const { MongoClient } = require('mongodb');
+
 const Server = require('../server.mjs').default;
 const { setPort } = require('./helpers');
+const config = require('./config').default;
 
 let tempTestServer = {};
 // Run before all tests.
@@ -11,6 +14,7 @@ before(async () => {
   console.info(`🚀 Temp test server started on port ${port}.`);
 
   setPort(port);
+  clearDB();
 });
 
 after(async () => {
@@ -27,6 +31,13 @@ const startServer = () => {
     });
   });
 }
+
+const clearDB = async () => {
+  const db = await MongoClient.connect(config.mongo.uri);
+  for (const collection of await db.collections()) {
+    await collection.deleteMany({});
+  }
+};
 
 const closeServer = async (server) => {
   if (server) {
