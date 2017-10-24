@@ -19,6 +19,9 @@ module.exports.getTestData = () => {
     { company: 'ipresent', domain: [ 'ipresent.com' ] },
     { company: 'aecom', domain: [ 'aecom.com' ] },
     { company: 'vivial', domain: [ 'vivial.net', 'theberrycompany.com' ] },
-    { company: 'The Shipyard', domain: [ 'theshipyard.com' ] }
+    { company: 'The Shipyard', domain: [ 'theshipyard.com' ] },
+    { company: 'Wikipedia', domain: [ 'wikipedia.com' ] },
+    { company: 'Google', domain: [ 'google.com' ] },
+    { company: 'OMV', domain: [ 'omv.com' ] }
   ]
 }

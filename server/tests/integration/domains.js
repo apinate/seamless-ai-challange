@@ -45,9 +45,9 @@ describe('Companies GET query', () => {
     const companiesQuery = querystring.stringify({ 'companies[]': [ company ] });
     const response = await client.get(`/domains?${companiesQuery}`);
 
-    const { data } = response;
-    assert.equal(data[0].name, company);
-    assert.include(domain, data[0].domain);
+    const { data: [ { name, domain: dataDomain } ] } = response;
+    assert.equal(name, company);
+    assert.include(domain, dataDomain);
   });
 
   it('should not be able to process more than 25 companies', async () => {
@@ -62,6 +62,16 @@ describe('Companies GET query', () => {
     const response = await client.get(`/domains?${companiesQuery}` + companiesQuery);
 
     assert.equal(response.status, 413);
+  });
+  it('should return domain of excluded company', async () => {
+    const client = helpers.getClient();
+
+    const companiesQuery = querystring.stringify({ 'companies[]': [ 'google' ] });
+    const response = await client.get(`/domains?${companiesQuery}`);
+
+    const { data: [ { name, domain } ] } = response;
+    assert.equal(name, 'google');
+    assert.equal(domain, 'google.com');
   });
   it('should return domain of test data companies', async () => {
     const client = helpers.getClient();
@@ -82,7 +92,8 @@ describe('Companies GET query', () => {
       assert.include(companies, name);
       const companyTestData = companiesTestData.filter(testData => testData.company === name);
 
-      assert.include(companyTestData[0].domain, domain, `for company ${name}`);
+      const [ { domain: testDataDomain } ] = companyTestData;
+      assert.include(testDataDomain, domain, `for company ${name}`);
     });
   });
 })
